@@ -217,7 +217,7 @@ if ($a == 'update')
 		));
 		cot_mail ($performer['user_email'], $rsubject, $rbody);
 
-		cot_sbr_sendpost($id, $L['sbr_posts_performer_edited'], $uid, 0, 'info');
+		cot_sbr_sendpost($id, $L['sbr_posts_performer_edited'], $performer['user_id'], 0, 'info');
 		cot_sbr_sendpost($id, $L['sbr_posts_employer_edited'], $usr['id'], 0, 'info');
 
 		
