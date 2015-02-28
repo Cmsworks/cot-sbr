@@ -381,7 +381,7 @@ if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['is
 				$rstage['stage_done'] = $sys['now'];
 				$rstage['stage_status'] = 'done';
 
-				if($db->update($db_sbr_stages, $rstage, "stage_num=" . $num))
+				if($db->update($db_sbr_stages, $rstage, "stage_sid=" . $id . "stage_num=" . $num))
 				{						
 					$payperformerwithtax = $payperformer - $payperformer*$cfg['plugin']['sbr']['tax_performer']/100;
 					
