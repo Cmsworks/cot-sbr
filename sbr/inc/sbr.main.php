@@ -310,7 +310,7 @@ if(!empty($num) && $a == 'claim' && $sbr['sbr_status'] == 'process')
 				$rstage['stage_claim'] = $sys['now'];
 				$rstage['stage_status'] = 'claim';
 
-				if($db->update($db_sbr_stages, $rstage, "stage_num=" . $num))
+				if($db->update($db_sbr_stages, $rstage, "stage_sid=" . $id . " AND stage_num=" . $num))
 				{						
 					cot_sbr_sendpost(
 						$id, 
