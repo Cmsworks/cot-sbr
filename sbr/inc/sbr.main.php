@@ -17,6 +17,7 @@ $stageid = cot_import('stageid', 'G', 'INT');
 $action = cot_import('action', 'G', 'ALP');
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 'sbr');
+cot_block($usr['auth_read']);
 
 /* === Hook === */
 foreach (cot_getextplugins('sbr.first') as $pl)

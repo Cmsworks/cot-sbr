@@ -16,7 +16,7 @@ require_once cot_incfile('forms');
 $status = cot_import('status', 'G', 'ALP');
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 'sbr');
-cot_block($usr['auth_write']);
+cot_block($usr['auth_read']);
 
 list($pn, $d, $d_url) = cot_import_pagenav('d', $cfg['plugin']['sbr']['maxrowsperpage']);
 
