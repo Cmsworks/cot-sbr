@@ -225,6 +225,7 @@
 	</table>
 	<!-- BEGIN: POSTFORM -->
 	<h4>{PHP.L.sbr_posts_add}</h4>
+	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 	<form action="{POST_FORM_ACTION}" method="post" id="addpost" enctype="multipart/form-data">
 		<p><textarea name="rposttext" rows="5" class="width95">{PHP.rposttext}</textarea></p>
 		<div class="postfiles">

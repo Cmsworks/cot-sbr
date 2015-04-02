@@ -156,6 +156,8 @@ $L['sbr_posts_to_all'] = 'Всем';
 $L['sbr_posts_to_performer'] = 'Исполнителю';
 $L['sbr_posts_to_employer'] = 'Заказчику';
 
+$L['sbr_posts_error_textempty'] = 'Сообщение не должно быть пустым';
+
 $L['sbr_posts_from'] = 'Сообщение от';
 $L['sbr_posts_for'] = 'Сообщение для';
 

@@ -514,7 +514,9 @@ if($a == 'addpost')
 	$rposttext = cot_import('rposttext', 'P', 'HTM');
 	$to = cot_import('to', 'P', 'ALP');
 	
-	cot_check(empty($rposttext), $L['sbr_posts_error_textempty'], 'rposttext');
+	if(empty($_FILES)){
+		cot_check(empty($rposttext), $L['sbr_posts_error_textempty'], 'rposttext');
+	}
 	
 	if(!cot_error_found())
 	{
@@ -644,6 +646,9 @@ if(empty($action))
 		'POST_FORM_ACTION' => cot_url('sbr', 'id=' . $id . '&num=' . $num . '&a=addpost'),
 		'POST_FORM_TO' => cot_selectbox($to, 'to', $R['sbr_posts_to_values'], $R['sbr_posts_to_titles']),
 	));
+	
+	cot_display_messages($t, 'MAIN.SBR.POSTS.POSTFORM');
+	
 	$t->parse('MAIN.SBR.POSTS.POSTFORM');
 
 	$t->parse('MAIN.SBR.POSTS');
