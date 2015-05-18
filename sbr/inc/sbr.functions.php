@@ -159,6 +159,13 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
 	$rpost['post_from'] = $from;
 	$rpost['post_to'] = $to;
 	$rpost['post_type'] = $type;
+
+	/* === Hook === */
+	foreach (cot_getextplugins('sbr.post.add.query') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 	
 	if($db->insert($db_sbr_posts, $rpost))
 	{
@@ -249,7 +256,14 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
 				cot_mail ($recipient['user_email'], $rsubject, $rbody, '', false, null, true);
 			}
 		}
-		
+
+		/* === Hook === */
+		foreach (cot_getextplugins('sbr.post.add.done') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		return $db->lastInsertId();
 	}
 	

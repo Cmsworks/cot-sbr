@@ -514,6 +514,13 @@ if($a == 'addpost')
 	$rposttext = cot_import('rposttext', 'P', 'HTM');
 	$to = cot_import('to', 'P', 'ALP');
 	
+	/* === Hook === */
+	foreach (cot_getextplugins('sbr.post.add.import') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if(empty($_FILES)){
 		cot_check(empty($rposttext), $L['sbr_posts_error_textempty'], 'rposttext');
 	}
@@ -590,10 +597,19 @@ if(empty($action))
 	{
 		$query_string = " AND (post_to=0 OR post_to=" . $usr['id'] . " OR post_from=" . $usr['id'] . ")";
 	}
-
+	/* === Hook === */
+	foreach (cot_getextplugins('sbr.posts.query') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 	$posts = $db->query("SELECT * FROM $db_sbr_posts 
 		WHERE post_sid=" . $id . " ".$query_string ."
 		ORDER BY post_date ASC")->fetchAll();
+
+	/* === Hook === */
+	$extp = cot_getextplugins('sbr.posts.loop');
+	/* ===== */
 
 	foreach ($posts as $post)
 	{
@@ -622,6 +638,12 @@ if(empty($action))
 			'POST_ROW_TYPE' => $post['post_type'],
 			'POST_ROW_DATE' => date('d.m.Y H:i:s', $post['post_date']),
 		));
+		/* === Hook - Part2 : Include === */
+		foreach ($extp as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */	
 		
 		$postfiles = $db->query("SELECT * FROM $db_sbr_files WHERE file_sid=" . $id . " AND file_area='post' AND file_code='".$post['post_id']."' ORDER BY file_id ASC")->fetchAll();
 		if(count($postfiles) > 0)
