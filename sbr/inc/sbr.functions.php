@@ -172,6 +172,11 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
 		$postid = $db->lastInsertId();
 		
 		$sbr_path = $cfg['plugin']['sbr']['filepath'] . '/' . $id . '/';
+		if (!file_exists($sbr_path))
+		{
+			mkdir($sbr_path);
+			@chmod($sbr_path, $cfg['dir_perms']);
+		}
 		
 		for($j = 0; $j < 10; $j++)
 		{
