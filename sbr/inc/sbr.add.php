@@ -147,29 +147,33 @@ if ($a == 'add')
 					$u_name_file = $rstagefiles['name'][$i][$j];
 					$u_size_file = $rstagefiles['size'][$i][$j];
 
+					$u_name_file  = str_replace("\'",'',$u_name_file );
+					$u_name_file  = trim(str_replace("\"",'',$u_name_file ));
+					$dotpos = strrpos($u_name_file,".")+1;
+					$f_extension = substr($u_name_file, $dotpos, 5);
+
 					if(!empty($u_tmp_name_file))
 					{
-						$u_name_file  = str_replace("\'",'',$u_name_file );
-						$u_name_file  = trim(str_replace("\"",'',$u_name_file ));
-						$dotpos = strrpos($u_name_file,".")+1;
-						$f_extension = substr($u_name_file, $dotpos, 5);
-						if(in_array($f_extension, explode(',', $cfg['plugin']['sbr']['extensions'])))
-						{
-							$u_newname_file = $i."_".md5(uniqid(rand(),true)).".".$f_extension;
-							$file = $sbr_path . $u_newname_file;
+						$fcheck = cot_file_check($u_tmp_name_file, $u_name_file, $f_extension);
+						if($fcheck == 1){
+							if(in_array($f_extension, explode(',', $cfg['plugin']['sbr']['extensions'])))
+							{
+								$u_newname_file = $i."_".md5(uniqid(rand(),true)).".".$f_extension;
+								$file = $sbr_path . $u_newname_file;
 
-							move_uploaded_file($u_tmp_name_file, $file);
-							@chmod($file, 0766);
+								move_uploaded_file($u_tmp_name_file, $file);
+								@chmod($file, 0766);
 
-							$rfile['file_sid'] = $id;
-							$rfile['file_url'] = $file;
-							$rfile['file_title'] = $u_name_file;
-							$rfile['file_area'] = 'stage';
-							$rfile['file_code'] = $i;
-							$rfile['file_ext'] = $f_extension;
-							$rfile['file_size'] = floor($u_size_file / 1024);
-							
-							$db->insert($db_sbr_files, $rfile);
+								$rfile['file_sid'] = $id;
+								$rfile['file_url'] = $file;
+								$rfile['file_title'] = $u_name_file;
+								$rfile['file_area'] = 'stage';
+								$rfile['file_code'] = $i;
+								$rfile['file_ext'] = $f_extension;
+								$rfile['file_size'] = floor($u_size_file / 1024);
+								
+								$db->insert($db_sbr_files, $rfile);
+							}
 						}
 					}
 				}

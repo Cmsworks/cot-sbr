@@ -22,6 +22,7 @@ require_once cot_incfile('sbr', 'plug');
 require_once cot_incfile('projects', 'module');
 require_once cot_incfile('payments', 'module');
 require_once cot_incfile('extrafields');
+require_once cot_incfile('uploads');
 require_once cot_incfile('forms');
 
 // Mode choice
