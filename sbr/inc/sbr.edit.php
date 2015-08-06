@@ -67,6 +67,9 @@ if ($a == 'update')
 	$rstagecost = cot_import('rstagecost', 'P', 'ARR');
 	$rstagedays = cot_import('rstagedays', 'P', 'ARR');
 
+	// Валидация стадий
+	cot_validate_stages($rstagetitle, $rstagetext, false);
+
 	$rstagefiles = $_FILES['rstagefiles'];
 	$rfilestoremove = cot_import('rfilestoremove', 'P', 'ARR');
 	
