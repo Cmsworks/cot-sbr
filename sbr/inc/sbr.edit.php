@@ -136,7 +136,10 @@ if ($a == 'update')
 			$rstage['stage_cost'] = $rstagecost[$stage['stage_num']];
 			$rstage['stage_days'] = $rstagedays[$stage['stage_num']];
 			
-			$db->update($db_sbr_stages, $rstage, "stage_num=" . $stage['stage_num']);
+			$db->update($db_sbr_stages, $rstage, "stage_num = :stage_num AND stage_sid = :stage_sid", array(
+				":stage_num" => $stage['stage_num'],
+				":stage_sid" => $sbr['sbr_id'],
+			));
 		}
 		
 		for($i = $stage['stage_num'] + 1; $i <= $stagescount; $i++)
