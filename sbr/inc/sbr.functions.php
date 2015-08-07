@@ -278,3 +278,38 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
 	
 	return false;
 }
+
+/**
+ * Вычищаем ненужные символы из названий и текстов стадий
+ *
+ * @param array $rstagetitle Массив из title стадий
+ * @param array $rstagetext Массив из text стадий
+ * @param bool $purifier TRUE - вычистить внутренности скриптов, FALSE - заменить допустимыми символами
+ */
+function cot_validate_stages(&$rstagetitle, &$rstagetext, $purifier = false) {
+	// Если включен плагин htmlpurifier, то очищаем через него
+	if ($purifier === true) {
+		if (cot_plugin_active('htmlpurifier') && function_exists('htmlpurifier_filter')) {
+			foreach ($rstagetitle as $key => $value) {
+				$rstagetitle[$key] = htmlpurifier_filter($value, false);
+			}
+			foreach ($rstagetext as $key => $value) {
+				$rstagetext[$key] = htmlpurifier_filter($value, false);
+			}
+		}
+		else {
+			error_log('Попытка функции cot_validate_stages валидировать title и text с помощью неактивного плагина htmlpurifier');
+			return false;
+		}
+	}
+	// Иначе производим замену наподобии cot_import с фильтром 'TXT'
+	else {
+		foreach ($rstagetitle as $key => $value) {
+			$rstagetitle[$key] = str_replace('<', '&lt;', trim($value));
+		}
+		foreach ($rstagetext as $key => $value) {
+			$rstagetext[$key] = str_replace('<', '&lt;', trim($value));
+		}
+	}
+}
+
