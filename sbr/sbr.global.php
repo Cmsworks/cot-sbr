@@ -27,10 +27,10 @@ if ($sbrpays = cot_payments_getallpays('sbr', 'paid'))
 						
 						// находим предыдущего выбранного исполнителя, если есть
 						$lastperformer = $db->query("SELECT u.* FROM $db_projects_offers AS o
-							LEFT JOIN $db_users AS u ON u.user_id=o.item_userid 
-							WHERE item_pid=" . (int)$sbr['sbr_pid'] . " AND item_choise='performer'")->fetch();
+							LEFT JOIN $db_users AS u ON u.user_id=o.offer_userid 
+							WHERE offer_pid=" . (int)$sbr['sbr_pid'] . " AND offer_choise='performer'")->fetch();
 
-						if($db->update($db_projects_offers, array("item_choise" => 'performer', "item_choise_date" => (int)$sys['now']), "item_pid=" . (int)$sbr['sbr_pid'] . " AND item_userid=" . (int)$sbr['sbr_performer'])){
+						if($db->update($db_projects_offers, array("offer_choise" => 'performer', "offer_choise_date" => (int)$sys['now']), "offer_pid=" . (int)$sbr['sbr_pid'] . " AND offer_userid=" . (int)$sbr['sbr_performer'])){
 							if ($db->fieldExists($db_projects, "item_performer")){
 								if($db->update($db_projects, array("item_performer" => $sbr['sbr_performer']), "item_id=" . (int)$sbr['sbr_pid'])){
 									/* === Hook === */
