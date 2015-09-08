@@ -127,9 +127,11 @@ if ($a == 'update')
 			$rsbr['sbr_update'] = $sys['now'];
 		}
 
-		$db->update($db_sbr, $rsbr, "sbr_id=" . $sbr['sbr_id']);
-		
-		$db->delete($db_sbr_stages, "stage_num>" . $stagescount);
+		$db->update($db_sbr, $rsbr, "sbr_id = ?", $sbr['sbr_id']);
+		$db->delete($db_sbr_stages, "stage_num > :stage_num AND stage_sid = :stage_sid", array(
+			":stage_num" => $stagescount,
+			":stage_sid" => $sbr['sbr_id'],
+		));
 		
 		$stages = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $sbr['sbr_id'] . " ORDER BY stage_num ASC")->fetchAll();
 		foreach($stages as $stage)
