@@ -10,7 +10,7 @@
  * Sbr plugin
  *
  * @package sbr
- * @version 1.0.0
+ * @version 1.0.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
@@ -25,7 +25,7 @@ require_once cot_incfile('payments', 'module');
 if($offers['item_choise'] != 'refuse')
 {
 	$t_o->assign(array(
-		"OFFER_ROW_SBRCREATELINK" => cot_url('sbr', 'm=add&pid=' . $id . '&uid=' . $offers['item_userid'] . '&' . cot_xg()),
+		"OFFER_ROW_SBRCREATELINK" => cot_url('sbr', 'm=add&pid=' . $id . '&uid=' . $offer['offer_userid'] . '&' . cot_xg()),
 	));
 }
 
