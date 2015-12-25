@@ -391,7 +391,7 @@ if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['is
 					{
 						$payinfo['pay_userid'] = $sbr['sbr_performer'];
 						$payinfo['pay_area'] = 'balance';
-						$payinfo['pay_code'] = 'sbr:'.$num.';stage:'.$num;
+						$payinfo['pay_code'] = 'sbr:'.$id.';stage:'.$num;
 						$payinfo['pay_summ'] = $payperformerwithtax;
 						$payinfo['pay_cdate'] = $sys['now'];
 						$payinfo['pay_pdate'] = $sys['now'];
