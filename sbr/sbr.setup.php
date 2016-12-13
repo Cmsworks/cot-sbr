@@ -6,7 +6,7 @@
  * Name=Sbr
  * Category=Payments
  * Description=Сделки
- * Version=1.0.3
+ * Version=1.0.4
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
@@ -27,6 +27,7 @@
  * maxrowsperpage=05:string::30:Число сделок на страницу
  * filepath=06:string::datas/sbr:Директория для файлов
  * extensions=07:string::jpg,jpeg,png,gif,bmp,txt,doc,docx,xls,pdf,rar,zip:Допустимые расширения файлов
+ * adminid=08:string::0:Admin id
  * [END_COT_EXT_CONFIG]
  */
 

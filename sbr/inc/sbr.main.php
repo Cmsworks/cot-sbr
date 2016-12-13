@@ -142,6 +142,27 @@ if($usr['id'] == $sbr['sbr_employer'])
 
 				if($db->insert($db_payments, $payinfo))
 				{
+					if($cfg['plugin']['sbr']['adminid'] > 0 && $cfg['plugin']['sbr']['tax_performer'] > 0)
+					{
+						$payinfo['pay_userid'] = $cfg['plugin']['sbr']['adminid'];
+						$payinfo['pay_area'] = 'balance';
+						$payinfo['pay_code'] = 'sbr:'.$id.';stage:'.$stage['stage_num'];
+						$payinfo['pay_summ'] = $stage['stage_cost']*$cfg['plugin']['sbr']['tax_performer']/100;
+						$payinfo['pay_cdate'] = $sys['now'];
+						$payinfo['pay_pdate'] = $sys['now'];
+						$payinfo['pay_adate'] = $sys['now'];
+						$payinfo['pay_status'] = 'done';
+						$payinfo['pay_desc'] = cot_rc($L['sbr_stage_tax_payments_desc'], 
+							array(
+								'sbr_title' => $sbr['sbr_title'], 
+								'stage_title' => $stage['stage_title'], 
+								'stage_num' => $stage['stage_num']
+							)
+						);
+
+						$db->insert($db_payments, $payinfo);
+					}
+
 					if(!empty($rtext))
 					{
 						cot_sbr_sendpost($id, $rtext, $sbr['sbr_performer'], $usr['id']);
@@ -405,7 +426,29 @@ if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['is
 							)
 						);
 
-						$db->insert($db_payments, $payinfo);
+						if($db->insert($db_payments, $payinfo)) 
+						{
+							if($cfg['plugin']['sbr']['adminid'] > 0 && $cfg['plugin']['sbr']['tax_performer'] > 0)
+							{
+								$payinfo['pay_userid'] = $cfg['plugin']['sbr']['adminid'];
+								$payinfo['pay_area'] = 'balance';
+								$payinfo['pay_code'] = 'sbr:'.$id.';stage:'.$num;
+								$payinfo['pay_summ'] = $payperformer*$cfg['plugin']['sbr']['tax_performer']/100;
+								$payinfo['pay_cdate'] = $sys['now'];
+								$payinfo['pay_pdate'] = $sys['now'];
+								$payinfo['pay_adate'] = $sys['now'];
+								$payinfo['pay_status'] = 'done';
+								$payinfo['pay_desc'] = cot_rc($L['sbr_claim_payments_admin_desc'], 
+									array(
+										'sbr_title' => $sbr['sbr_title'], 
+										'stage_title' => $stage['stage_title'], 
+										'stage_num' => $stage['stage_num']
+									)
+								);
+
+								$db->insert($db_payments, $payinfo);
+							}
+						}
 					}
 
 					// Выплата Заказчику
