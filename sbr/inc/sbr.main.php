@@ -142,12 +142,14 @@ if($usr['id'] == $sbr['sbr_employer'])
 
 				if($db->insert($db_payments, $payinfo))
 				{
-					if($cfg['plugin']['sbr']['adminid'] > 0 && $cfg['plugin']['sbr']['tax_performer'] > 0)
+					$tax = $cfg['plugin']['sbr']['tax'] + $cfg['plugin']['sbr']['tax_performer'];
+
+					if($cfg['plugin']['sbr']['adminid'] > 0 && $tax > 0)
 					{
 						$payinfo['pay_userid'] = $cfg['plugin']['sbr']['adminid'];
 						$payinfo['pay_area'] = 'balance';
 						$payinfo['pay_code'] = 'sbr:'.$id.';stage:'.$stage['stage_num'];
-						$payinfo['pay_summ'] = $stage['stage_cost']*$cfg['plugin']['sbr']['tax_performer']/100;
+						$payinfo['pay_summ'] = $stage['stage_cost']*$tax/100;
 						$payinfo['pay_cdate'] = $sys['now'];
 						$payinfo['pay_pdate'] = $sys['now'];
 						$payinfo['pay_adate'] = $sys['now'];
@@ -428,12 +430,14 @@ if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['is
 
 						if($db->insert($db_payments, $payinfo)) 
 						{
-							if($cfg['plugin']['sbr']['adminid'] > 0 && $cfg['plugin']['sbr']['tax_performer'] > 0)
+							$tax = $cfg['plugin']['sbr']['tax'] + $cfg['plugin']['sbr']['tax_performer'];
+
+							if($cfg['plugin']['sbr']['adminid'] > 0 && $tax > 0)
 							{
 								$payinfo['pay_userid'] = $cfg['plugin']['sbr']['adminid'];
 								$payinfo['pay_area'] = 'balance';
 								$payinfo['pay_code'] = 'sbr:'.$id.';stage:'.$num;
-								$payinfo['pay_summ'] = $payperformer*$cfg['plugin']['sbr']['tax_performer']/100;
+								$payinfo['pay_summ'] = $payperformer*$tax/100;
 								$payinfo['pay_cdate'] = $sys['now'];
 								$payinfo['pay_pdate'] = $sys['now'];
 								$payinfo['pay_adate'] = $sys['now'];
