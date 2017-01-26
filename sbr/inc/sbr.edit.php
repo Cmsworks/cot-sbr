@@ -160,7 +160,7 @@ if ($a == 'update')
 			$stageid = $db->lastInsertId();
 		}
 
-		if(is_array($rfilestoremove))
+		if(is_array($rfilestoremove) && count($rfilestoremove) > 0)
 		{
 			$filestoremove = $db->query("SELECT * FROM $db_sbr_files WHERE file_sid=$id AND file_id IN (".implode(',', $rfilestoremove).")")->fetchAll();
 			foreach($filestoremove as $row)
