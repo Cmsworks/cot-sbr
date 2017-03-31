@@ -6,7 +6,7 @@
  * Name=Sbr
  * Category=Payments
  * Description=Сделки
- * Version=1.0.6
+ * Version=1.0.7
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
@@ -35,7 +35,7 @@
  * sbr plugin
  *
  * @package sbr
- * @version 1.0.6
+ * @version 1.0.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
