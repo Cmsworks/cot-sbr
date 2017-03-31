@@ -9,6 +9,7 @@ defined('COT_CODE') or die('Wrong URL.');
 
 require_once cot_incfile('sbr', 'plug');
 require_once cot_incfile('payments', 'module');
+require_once cot_incfile('projects', 'module');
 
 // Проверяем платежки на оплату сделок. Если есть то активируем сделки.
 if ($sbrpays = cot_payments_getallpays('sbr', 'paid'))
